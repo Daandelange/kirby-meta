@@ -7,6 +7,7 @@ use Kirby\Cms\Field;
 use Kirby\Cms\File;
 use Kirby\Cms\Language;
 use Kirby\Cms\Page;
+use Kirby\Filesystem\Mime;
 
 class PageMeta
 {
@@ -364,6 +365,11 @@ class PageMeta
             $social[] = [
                 'property' => 'og:image:height',
                 'content' => $thumb->height(),
+            ];
+
+            $social[] = [
+                'property' => 'og:image:type',
+                'content' => Mime::fromExtension($extension),
             ];
 
             if ($image->alt()->isNotEmpty()) {
