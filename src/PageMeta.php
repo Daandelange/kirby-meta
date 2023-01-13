@@ -164,7 +164,7 @@ class PageMeta
         } elseif ($owner === 'person' && ($user = $site->meta_person()->toUser())) {
             $person = [
                 '@type' => 'Person',
-                '@id'   => url('/#owner'),
+                '@id'   => $ownerId,
                 'name' => $user->name()->toString(),
                 'email' => $user->email(),
             ];
