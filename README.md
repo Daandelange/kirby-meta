@@ -79,6 +79,8 @@ The options below have to be set in your `config.php`. Please note that every op
 | `robots.translate` | `bool` | `true` | Allows crawlers offer automated translation of your content. Can be overriden in global or page-specidic settings from the panel. Requires `robots` option to be `true` for having an effect. |
 | `theme.color` | `string\|null` | `null` | If not empty, will generate a corresponding meta tag used by some browsers for coloring the UI. |
 | `panel.view.filter` | Provide a filter function for hiding certain pages from the metadata debug view in the panel. See the Kirby docs on [$pages->filter()](https://getkirby.com/docs/reference/objects/cms/pages/filter) for details. |
+| `header.indentation.string` | `string` | `'  '` | Here you can define the indentation characters for rendering the header tags. |
+| `header.indentation.level` | `int` | `2` | Base indentation level for rendering the header tags. |
 
 ### Blueprint setup
 

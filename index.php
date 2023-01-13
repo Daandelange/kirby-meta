@@ -17,6 +17,9 @@ App::plugin('fabianmichael/meta', [
         'social' => true,
         'twitter' => false,
 
+        'header.indentation.string' => '  ',
+        'header.indentation.level' => 2,
+
         'robots' => true,
         'robots.canonical' => true,
         'robots.index' => true,

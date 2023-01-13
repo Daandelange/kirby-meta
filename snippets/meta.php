@@ -1,8 +1,15 @@
 <?php
 
 $meta = $page->meta();
+$indentLevel = (int) $kirby->option('fabianmichael.meta.header.indentation.level', 2);
+$indentString = (string) $kirby->option('fabianmichael.meta.header.indentation.string', '  ');
 $data = [
     'meta' => $meta,
+    'indentation' => [
+        'computed' => str_repeat($indentString, $indentLevel),
+        'level' => $indentLevel,
+        'string' => $indentString,
+    ],
 ];
 
 snippet('meta/general', $data);
