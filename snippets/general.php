@@ -19,10 +19,6 @@ if (kirby()->multilang() && kirby()->languages()->count() > 1) {
                 'href' => \FabianMichael\Meta\Helper::urlForLanguageDetection($page),
             ])."\n";
         }
-        // Don't provide alternate for current lang
-        if ($lang->code() === kirby()->language()->code()) {
-            continue;
-        }
 
         // Only provide links for pages that have actual translation content
         if ($page->translation($lang->code())->exists() === true) {
