@@ -80,6 +80,7 @@ The options below have to be set in your `config.php`. Please note that every op
 | `title.separators` | `array` | `["~" , "-" , "–" , "—" , ":" , "/", …]` | List of available separator options for the `<title>` tag. The separator can be selected in the panel and is placed between page title and site title. |
 | `theme.color` | `string\|null` | `null` | If not empty, will generate a corresponding meta tag used by some browsers for coloring the UI. |
 | `panel.view.filter` | Provide a filter function for hiding certain pages from the metadata debug view in the panel. See the Kirby docs on [$pages->filter()](https://getkirby.com/docs/reference/objects/cms/pages/filter) for details. |
+| `languageChooserBaseUrl` | `string\|null` | If not empty, the `x-default` alternate meta tag will point to it. Provide a full URL (`https://` and no tailing slash). If empty, Kirby's `language.detect` setting will be used if enabled, or a static link to the english translation with a fallback to the default translation. |
 
 ### Blueprint setup
 

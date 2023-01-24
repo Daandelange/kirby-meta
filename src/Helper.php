@@ -35,6 +35,11 @@ class Helper
 
     public static function urlForLanguageDetection(Page $page): string
     {
+        $paramXDefault = kirby()->option('fabianmichael.meta.languageChooserBaseUrl', null);
+        if (is_string($paramXDefault)===true) {
+            return $paramXDefault.'/'.$page->slug();
+        }
+
         // Use kirby's automatic language chooser
         // Note: languages.detect is incompatible with custom language urls
         $isUsingCustomUrls = kirby()->language()->url() === kirby()->url();

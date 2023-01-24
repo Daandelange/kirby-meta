@@ -16,6 +16,7 @@ App::plugin('fabianmichael/meta', [
         'schema' => true,
         'social' => true,
         'twitter' => false,
+        'languageChooserBaseUrl' => null,
 
         'robots' => true,
         'robots.canonical' => true,
