@@ -28,7 +28,7 @@ if (kirby()->multilang() && kirby()->languages()->count() > 1) {
         if ($page->translation($lang->code())->exists() === true) {
             echo Kirby\Toolkit\Html::tag('link', null, [
                 'rel' => 'alternate',
-                'hreflang' => $lang->locale(LC_ALL),
+                'hreflang' => $lang->locale(LC_ALL)??$lang->code(),
                 'href' => $page->url($lang->code()),
             ])."\n";
         }
