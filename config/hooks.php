@@ -5,6 +5,10 @@ use Kirby\Cms\App as Kirby;
 use Kirby\Cms\Page;
 
 return [
+    'route:after' => function (\Kirby\Http\Route $route): void {
+        kirby()->response()->header('Content-Language', kirby()->language()->code());
+    },
+    
     // 'meta.load:after' => function (array $metadata, Page $page) {
     //     // set `thumbnail.png` as default share image for all pages,
     //     // if not other image was already set by a page model
