@@ -5,30 +5,6 @@ use Kirby\Cms\App as Kirby;
 use Kirby\Cms\Page;
 
 return [
-    'route:after' => function ($result): void {
-        if ($result instanceof Page) {
-            $page = $result;
-
-            if ( $page->exists() && $page->kirby()->multilang() && $page->kirby()->languages()->count() > 1) {
-                $response = $page->kirby()->response();
-                // Add current content-language
-                $response->header('Content-Language', $page->kirby()->language()->code());
-                // Links to all content languages
-                $alternates = [];
-                foreach ($page->kirby()->languages() as $lang) {
-                    // Only provide links for pages that have actual translation content
-                    if ($page->translation($lang->code())->exists() === false) {
-                        continue;
-                    }
-                    $alternates[$page->url($lang->code())] = '<'.$page->url($lang->code()).'>; rel="alternate"; hreflang="'.($lang->locale(LC_ALL)??$lang->code()).'"';
-                }
-                if (count($alternates)>0) {
-                    $response->header('Link', implode(', ', $alternates));
-                }
-            }
-        }
-    },
-    
     // 'meta.load:after' => function (array $metadata, Page $page) {
     //     // set `thumbnail.png` as default share image for all pages,
     //     // if not other image was already set by a page model
