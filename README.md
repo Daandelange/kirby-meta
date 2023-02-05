@@ -225,7 +225,7 @@ return [
 ```
 
 
-#### `'meta.sitemap…` hooks
+#### `meta.sitemap…` hooks
 
 These hooks allow you to completely alter the way how the sitemap is being generated. These functions are meant to manipulate the provided DOM document and elements directly and should not return anything.
 
@@ -278,6 +278,32 @@ return [
     ) {
       return '#ff0000';
     }
+  ],
+];
+```
+
+
+#### `meta.alternateLanguages:after` hook
+
+Meta provides links to alternate content versions (translations) of your pages in the sitemap and in the meta tags. This hook allows you to modify the translated versions of your content served by this plugin.
+
+```php
+return [
+  'hooks' => [
+    'meta.alternateLanguages:after' => function (array $alternateLanguages, Page $page, PageMeta $meta) {
+        // Entries in $alternateLanguages have keys corresponding to the HTML attributes : <link key="value" />
+        foreach($alternateLanguages as $langCode => $alternateLanguage){
+            // Only provide links for pages that have actual translation content
+            if (
+                $alternateLanguage['hreflang']!=='x-default'
+                && $langCode!==$page->kirby()->defaultLanguage()->code()
+                && $page->translation($langCode)->exists() === false
+            ) {
+                unset($alternateLanguages[$langCode]);
+            }
+        }
+        return $alternateLanguages;
+    },
   ],
 ];
 ```

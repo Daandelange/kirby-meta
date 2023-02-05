@@ -99,4 +99,28 @@ return [
     //         }
     //     }
     // },
+
+    // 'meta.alternateLanguages:after' => function (
+    //     array $alternateLanguages,
+    //     Page $page,
+    //     PageMeta $meta,
+    // ) {
+    //     // Entries in $alternateLanguages have keys corresponding to the HTML attributes : <link key="value" />
+    //     // Important: To be valid, the alternate language metatags need to be identical on all translations of the same page !
+    //     // Read more: https://developers.google.com/search/docs/specialty/international/localized-versions#all-method-guidelines
+    //     foreach($alternateLanguages as $langCode => $alternateLanguage){
+    //         // Only provide links for pages that have actual translation content
+    //         if (
+    //              // Always leave x-default
+    //             $alternateLanguage['hreflang']!=='x-default'
+    //             // Always point to default language (translation()->exists() will return null as it's a Content and not a ContentTranslation)
+    //             && $langCode!==$page->kirby()->defaultLanguage()->code()
+    //             // Translation doesn't exist
+    //             && $page->translation($langCode)->exists() === false
+    //         ) {
+    //             unset($alternateLanguages[$langCode]);
+    //         }
+    //     }
+    //     return $alternateLanguages;
+    // },
 ];

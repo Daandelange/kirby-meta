@@ -500,4 +500,63 @@ class PageMeta
             ],
         ];
     }
+
+    protected function urlForLanguageDetection(): string
+    {
+        // Build url from user options ?
+        $paramXDefault = kirby()->option('fabianmichael.meta.languageChooserBaseUrl', null);
+        if (is_string($paramXDefault)===true && strlen($paramXDefault)>0) {
+            return $paramXDefault.'/'.$this->page->slug();
+        }
+
+        // Use kirby's automatic language chooser
+        // Note: languages.detect is incompatible with custom language urls
+        $isUsingCustomUrls = kirby()->language()->url() === kirby()->url();
+        $languageDetectionIsEnabled = kirby()->option('languages.detect', false) === true;
+        if ($languageDetectionIsEnabled && $isUsingCustomUrls) {
+            return $this->page->urlForLanguage('');
+        }
+        else {
+            // Ideally provide an auto-select link, here we provide a link to the "most common" language falling back to the default one.
+            $defaultInternationalLang = kirby()->languages()->has('en') ? kirby()->language('en') : kirby()->defaultLanguage();
+            return $this->page->url( $defaultInternationalLang->code() );
+        }
+    }
+
+    public function alternateLanguages(): array
+    {
+        $alternateLanguages = [];
+        if (kirby()->multilang() && kirby()->languages()->count() > 1) {
+            foreach (kirby()->languages() as $lang) {
+                // Note: x-default defines the entry page for unlisted languages. It doesn't define the default language.
+                if ($lang->isDefault()) {
+                    $alternateLanguages['default'] = [
+                        'rel' => 'alternate',
+                        'hreflang' => 'x-default',
+                        'href' => $this->urlForLanguageDetection(),
+                    ];
+                }
+        
+                // One alternate per available language
+                $alternateLanguages[$lang->code()] = [
+                    'rel' => 'alternate',
+                    'hreflang' => $lang->locale(LC_ALL)??$lang->code(),
+                    'href' => $this->page->url($lang->code()),
+                ];
+            }
+        }
+
+        // Hook
+        $alternateLanguages = $this->kirby->apply(
+            'meta.alternateLanguages:after',
+            [
+                'alternateLanguages' => $alternateLanguages,
+                'meta'               => $this,
+                'page'               => $this->page,
+            ],
+            'alternateLanguages'
+        );
+
+        return $alternateLanguages;
+    }
 }
